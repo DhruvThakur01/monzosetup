@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-client
+  namespace: gateway
+  labels:
+    app: gateway-client
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: gateway-client
+  template:
+    metadata:
+      labels:
+        app: gateway-client
+        egress.monzo.com/allowed-hello-world: "true"
+    spec:
+      containers:
+      - name: gateway-client
+        image: aksyg.azurecr.io/reqmaker:web2
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "10Mi"
+          limits:
+            cpu: "50m"
+            memory: "90Mi"
+        env:
+        - name: URL
+          value: "http://world2.centralindia.cloudapp.azure.com"
+        - name: isEgress
+          value: "true"
+        - name: nThreads
+          value: "10"
+        command: ["request-maker"]
+        args: ["$(URL)", "$(isEgress)", "$(nThreads)"]

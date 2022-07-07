@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: non-gateway-client
+  namespace: non-gateway
+  labels:
+    app: non-gateway-client
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: non-gateway-client
+  template:
+    metadata:
+      labels:
+        app: non-gateway-client
+    spec:
+      containers:
+      - name: non-gateway-client
+        image: aksyg.azurecr.io/reqmaker:web2
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "10Mi"
+          limits:
+            cpu: "50m"
+            memory: "90Mi"
+        env:
+        - name: URL
+          value: "http://world1.centralindia.cloudapp.azure.com"
+        - name: isEgress
+          value: "false"
+        - name: nThreads
+          value: "10"
+        command: ["request-maker"]
+        args: ["$(URL)", "$(isEgress)", "$(nThreads)"]

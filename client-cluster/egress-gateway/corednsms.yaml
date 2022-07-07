@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: coredns-custom
+  namespace: kube-system
+data:
+  test.override: |
+    rewrite name world2.centralindia.cloudapp.azure.com hello-world.egress-operator-system.svc.cluster.local

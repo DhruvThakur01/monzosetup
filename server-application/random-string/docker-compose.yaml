@@ -1,0 +1,6 @@
+version: '3'
+services:
+  hello-world:
+    image: aksyg.azurecr.io/random-string:web
+    ports:
+    - 3000:3000
