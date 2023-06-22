@@ -5,7 +5,7 @@ metadata:
   labels:
     app: random-string
 spec:
-  replicas: 300
+  replicas: 2
   selector:
     matchLabels:
       app: random-string
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: random-string
-        image: aksyg.azurecr.io/random-string:web
+        image: nitinnizhawan/random-string
         ports:
         - containerPort: 3000

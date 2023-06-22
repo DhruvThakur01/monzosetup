@@ -6,7 +6,7 @@ metadata:
   labels:
     app: non-gateway-client
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: non-gateway-client
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: non-gateway-client
-        image: aksyg.azurecr.io/reqmaker:web2
+        image: nnizhawanacr.azurecr.io/nnizhawan/request-maker:sha@sha256:02110da03ed50b86ebc2c6fc55d23a649d590b3c99bb366448616e68be7e9637
         imagePullPolicy: Always
         resources:
           requests:
@@ -28,10 +28,10 @@ spec:
             memory: "90Mi"
         env:
         - name: URL
-          value: "http://world1.centralindia.cloudapp.azure.com"
+          value: "http://randomstr2.eastus.cloudapp.azure.com/"
         - name: isEgress
-          value: "false"
+          value: "true"
         - name: nThreads
-          value: "10"
+          value: "1"
         command: ["request-maker"]
         args: ["$(URL)", "$(isEgress)", "$(nThreads)"]

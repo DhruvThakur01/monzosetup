@@ -11,6 +11,12 @@ import (
 )
 
 var exit = make(chan bool)
+/*
+var client = http.Client{
+    Timeout: 2 * time.Second,
+}
+*/
+
 
 func makeRequest(url string, isEgress bool, nThreads int) {
 
@@ -22,7 +28,7 @@ func makeRequest(url string, isEgress bool, nThreads int) {
 
 	aftRes := time.Now()
 	if err != nil {
-		fmt.Printf("Error 1 | IsEgress: %t;Error: %s\n", isEgress, err.Error())
+		fmt.Printf("Error 1 | IsEgress: %t;Response Time: %v; Error: %s\n", isEgress, aftRes.Sub(befReq).Nanoseconds(),err.Error())
 		runtime.GC()
 		return
 	}
